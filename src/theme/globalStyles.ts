@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-function getThemedStyles(colors: Colors) {
+function getGlobalThemedStyles(colors: Colors) {
   return StyleSheet.create({
     screen: {
       flex: 1,
@@ -15,4 +15,4 @@ function getThemedStyles(colors: Colors) {
   });
 }
 
-export default getThemedStyles;
+export default getGlobalThemedStyles;

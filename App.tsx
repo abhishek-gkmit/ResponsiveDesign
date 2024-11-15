@@ -1,13 +1,17 @@
-import {Text} from 'react-native';
+import Login from '@screens/login';
 
 import {ThemeContextProvider} from '@config/contexts/ThemeContext';
 
 function App() {
   return (
     <ThemeContextProvider>
-      <Text>App</Text>
+      <Main />
     </ThemeContextProvider>
   );
+}
+
+function Main() {
+  return <Login />;
 }
 
 export default App;

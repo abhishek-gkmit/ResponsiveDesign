@@ -1,33 +1,11 @@
-interface Colors {
-  warning: string;
-  error: string;
-  primary: string;
-  secondary: string;
-  background: string;
-  backgroundDark: string;
-  foreground: string;
-  mauve: string;
-  tropicalIndigo: string;
-  accentBlue: string;
-  lightGreen: string;
-  darkGreen: string;
-  lightRed: string;
-  gray: string;
-  lightGray: string;
-  black1: 'rgba(0, 0, 0, 0.1)';
-  black2: 'rgba(0, 0, 0, 0.2)';
-  black3: 'rgba(0, 0, 0, 0.3)';
-  black4: 'rgba(0, 0, 0, 0.4)';
-  black5: 'rgba(0, 0, 0, 0.5)';
-  black6: 'rgba(0, 0, 0, 0.6)';
-  black7: 'rgba(0, 0, 0, 0.7)';
-  black8: 'rgba(0, 0, 0, 0.8)';
-  white1: 'rgba(255, 255, 255, 0.1)';
-  white2: 'rgba(255, 255, 255, 0.2)';
-  white3: 'rgba(255, 255, 255, 0.3)';
-  white4: 'rgba(255, 255, 255, 0.4)';
-  white5: 'rgba(255, 255, 255, 0.5)';
-  white6: 'rgba(255, 255, 255, 0.6)';
-  white7: 'rgba(255, 255, 255, 0.7)';
-  white8: 'rgba(255, 255, 255, 0.8)';
+import { colors } from '@theme/colors';
+
+declare global {
+  type Colors = (typeof colors)[keyof typeof colors];
+
+  type Gradient = string[];
+
+  interface Gradients {
+    loginScreen: Gradient;
+  }
 }

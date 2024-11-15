@@ -1,0 +1,3 @@
+interface LoginModalProps {
+  hideModal: () => void;
+}
