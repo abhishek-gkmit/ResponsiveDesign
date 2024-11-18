@@ -6,7 +6,7 @@ import { ROUTES } from '@constants/routes';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
-function MainNavigator() {
+function StackNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -17,4 +17,4 @@ function MainNavigator() {
   );
 }
 
-export default MainNavigator;
+export default StackNavigator;
