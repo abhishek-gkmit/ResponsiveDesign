@@ -1,17 +1,16 @@
-import Login from '@screens/login';
+import {NavigationContainer} from '@react-navigation/native';
 
 import {ThemeContextProvider} from '@config/contexts/ThemeContext';
+import MainNavigator from '@config/MainNavigator';
 
 function App() {
   return (
     <ThemeContextProvider>
-      <Main />
+      <NavigationContainer>
+        <MainNavigator />
+      </NavigationContainer>
     </ThemeContextProvider>
   );
-}
-
-function Main() {
-  return <Login />;
 }
 
 export default App;

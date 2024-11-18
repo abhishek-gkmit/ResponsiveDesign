@@ -1,0 +1,3 @@
+interface SplashScreenProps {
+  hideSplashScreen: () => void;
+}
