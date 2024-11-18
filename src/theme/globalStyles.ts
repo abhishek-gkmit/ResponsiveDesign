@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-function getThemedStyles(colors: Colors) {
+function getGlobalThemedStyles(colors: Colors) {
   return StyleSheet.create({
     screen: {
       flex: 1,
@@ -12,7 +12,11 @@ function getThemedStyles(colors: Colors) {
       justifyContent: 'center',
       alignItems: 'center',
     },
+
+    flex: {
+      flex: 1,
+    },
   });
 }
 
-export default getThemedStyles;
+export default getGlobalThemedStyles;

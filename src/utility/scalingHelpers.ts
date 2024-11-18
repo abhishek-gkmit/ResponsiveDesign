@@ -36,6 +36,7 @@ export function horizontalScale(size: number) {
 export function verticalScale(size: number) {
   const dim = Dimensions.get('screen');
   const height = Math.max(dim.width, dim.height);
+  // const height = dim.height;
 
   return Math.floor((height / guidelineBaseHeight) * size);
 }
@@ -45,7 +46,7 @@ export function moderateScale(size: number, factor: number = 0.5) {
 }
 
 export function isLandscape() {
-  const dim = Dimensions.get('screen');
+  const dim = Dimensions.get('window');
 
   return dim.width > dim.height;
 }
