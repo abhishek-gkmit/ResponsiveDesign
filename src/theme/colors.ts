@@ -1,5 +1,5 @@
 const commonColors = {
-  primary: '#0085ff',
+  primary: '#8badff',
   secondary: '#8badff',
   warning: '#fff300',
   error: '#ff0000',
@@ -58,6 +58,7 @@ export const colors = {
     loginModalBackgroundColor: commonColors.gunmetal,
     loginModalHeadingColor: commonColors.white,
     loginModalPill: commonColors.white3,
+    splashScreenOverlay: commonColors.black1,
   },
 
   light: {
@@ -82,5 +83,6 @@ export const colors = {
     loginModalBackgroundColor: commonColors.white,
     loginModalHeadingColor: commonColors.lightBlack,
     loginModalPill: commonColors.black3,
+    splashScreenOverlay: commonColors.white1,
   },
 } as const;

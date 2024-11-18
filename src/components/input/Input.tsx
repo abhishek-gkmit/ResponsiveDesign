@@ -10,10 +10,62 @@ import React, {
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import useStyles from '@hooks/useStyles';
 import { ThemeContext } from '@config/contexts/ThemeContext';
 
 import getThemedStyles from './styles';
-import useStyles from '@hooks/useStyles';
+
+function renderTextInput(
+  value: string | undefined,
+  setValueWrapper: (value: string) => void,
+  setIsFocused: (isFocused: boolean) => void,
+  icon: Icon | null,
+  secureTextEntry: boolean | undefined,
+  colors: Colors,
+  passwordVisible: boolean,
+  props: any,
+  styles: any,
+  ref: any,
+) {
+  return (
+    <TextInput
+      style={styles.textInput}
+      value={value}
+      onChangeText={setValueWrapper}
+      placeholderTextColor={colors.gray}
+      onFocus={() => setIsFocused(true)}
+      onBlur={() => setIsFocused(false)}
+      hitSlop={{
+        top: 15,
+        bottom: 15,
+        left: icon?.size ? icon.size + 15 : 24 + 15,
+        right: 15,
+      }}
+      ref={ref}
+      secureTextEntry={secureTextEntry && !passwordVisible}
+      {...props}
+    />
+  );
+}
+
+function renderMakePasswordVisibleButton(
+  passwordVisible: boolean,
+  setPasswordVisible: React.Dispatch<React.SetStateAction<boolean>>,
+  colors: Colors,
+  cprops: any,
+) {
+  return cprops.secureTextEntry ? (
+    <TouchableOpacity
+      activeOpacity={1}
+      onPress={() => setPasswordVisible(passwordVisible => !passwordVisible)}>
+      <MaterialCommunityIcons
+        name={!passwordVisible ? 'eye-off' : 'eye'}
+        size={14}
+        color={colors.gray}
+      />
+    </TouchableOpacity>
+  ) : null;
+}
 
 // cprops is a shorthand for componentProps
 const Input = forwardRef(function Input(
@@ -41,71 +93,59 @@ const Input = forwardRef(function Input(
     [setValue],
   );
 
-  // memoized variables
   const iconToRender = useMemo(() => {
+    const iconColor =
+      isFocused || textChanged || !errorMsg || errorMsg === ''
+        ? icon?.color || colors.primary
+        : 'red';
+
     return icon ? (
       <MaterialCommunityIcons
         name={icon.name}
         size={icon.size || 14}
-        color={
-          isFocused
-            ? icon.color || colors.primary
-            : textChanged
-              ? icon.color || colors.primary
-              : !errorMsg || errorMsg === ''
-                ? icon.color || colors.primary
-                : 'red'
-        }
+        color={iconColor}
       />
     ) : null;
-  }, [icon, errorMsg, isFocused]);
+  }, [icon, errorMsg, isFocused, textChanged]);
 
   const textInput = useMemo(() => {
-    return (
-      <TextInput
-        style={styles.textInput}
-        value={value}
-        onChangeText={setValueWrapper}
-        placeholderTextColor={colors.gray}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        hitSlop={{
-          top: 15,
-          bottom: 15,
-          left: icon?.size ? icon.size + 15 : 24 + 15,
-          right: 15,
-        }}
-        ref={ref}
-        secureTextEntry={secureTextEntry && !passwordVisible}
-        {...props}
-      />
+    return renderTextInput(
+      value,
+      setValueWrapper,
+      setIsFocused,
+      icon,
+      secureTextEntry,
+      colors,
+      passwordVisible,
+      props,
+      styles,
+      ref,
     );
-  }, [value, setValue, setIsFocused, icon, secureTextEntry, props]);
+  }, [
+    value,
+    setValueWrapper,
+    setIsFocused,
+    icon,
+    secureTextEntry,
+    props,
+    colors,
+    passwordVisible,
+    styles,
+  ]);
 
   const makePasswordVisibleButton = useMemo(() => {
-    return cprops.secureTextEntry ? (
-      <TouchableOpacity
-        activeOpacity={1}
-        onPress={() => setPasswordVisible(passwordVisible => !passwordVisible)}>
-        {!passwordVisible ? (
-          <MaterialCommunityIcons
-            name={'eye-off'}
-            size={14}
-            color={colors.gray}
-          />
-        ) : (
-          <MaterialCommunityIcons name={'eye'} size={14} color={colors.gray} />
-        )}
-      </TouchableOpacity>
-    ) : null;
-  }, [cprops, passwordVisible, setPasswordVisible]);
+    return renderMakePasswordVisibleButton(
+      passwordVisible,
+      setPasswordVisible,
+      colors,
+      cprops,
+    );
+  }, [cprops, passwordVisible, setPasswordVisible, colors]);
 
   const errorMsgText = useMemo(() => {
-    if (!textChanged && errorMsg) {
-      return <Text style={styles.errorMsg}>{errorMsg}</Text>;
-    } else {
-      return null;
-    }
+    return !textChanged && errorMsg ? (
+      <Text style={styles.errorMsg}>{errorMsg}</Text>
+    ) : null;
   }, [errorMsg, textChanged]);
 
   const inputLabel = useMemo(() => {
@@ -115,11 +155,9 @@ const Input = forwardRef(function Input(
   const inputContainerStyle = useMemo(() => {
     return isFocused
       ? [styles.inputContainer, styles.inputContainerFocus]
-      : textChanged
+      : textChanged || !errorMsg || errorMsg === ''
         ? styles.inputContainer
-        : !errorMsg || errorMsg === ''
-          ? styles.inputContainer
-          : [styles.inputContainer, styles.inputContainerError];
+        : [styles.inputContainer, styles.inputContainerError];
   }, [isFocused, textChanged, errorMsg]);
 
   // effects

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { fontSize } from '@constants';
+import { fontSize } from '@constants/fonts';
 import { moderateScale } from '@utility/scalingHelpers';
 
 function getThemedStyles(colors: Colors) {

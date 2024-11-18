@@ -13,12 +13,11 @@ const ThemeContext = createContext<ThemeContextValues>({
 function ThemeContextProvider({ children }: React.PropsWithChildren) {
   const theme = useColorScheme();
 
-  const colorsByTheme = useMemo(() => {
-    return theme ? colors[theme] : colors.light;
-  }, [theme]);
-
-  const gradientsByTheme = useMemo(() => {
-    return theme ? GRADIENTS[theme] : GRADIENTS.light;
+  const { colorsByTheme, gradientsByTheme } = useMemo(() => {
+    return {
+      colorsByTheme: colors[theme || 'light'],
+      gradientsByTheme: GRADIENTS[theme || 'light'],
+    };
   }, [theme]);
 
   return (

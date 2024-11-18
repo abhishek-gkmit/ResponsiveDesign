@@ -12,6 +12,10 @@ function getGlobalThemedStyles(colors: Colors) {
       justifyContent: 'center',
       alignItems: 'center',
     },
+
+    flex: {
+      flex: 1,
+    },
   });
 }
 

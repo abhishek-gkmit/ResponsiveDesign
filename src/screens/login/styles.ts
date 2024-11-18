@@ -5,17 +5,19 @@ import {
   verticalScale,
   moderateScale,
   isLandscape,
+  heightPercentageToDP,
 } from '@utility/scalingHelpers';
-import { fontFamily, fontSize, fontWeight } from '@constants';
+import { fontFamily, fontSize, fontWeight } from '@constants/fonts';
 
 function getThemedStyles(colors: Colors) {
-  const dim = Dimensions.get('window');
-
   return StyleSheet.create({
     gradientContainerStyle: {
-      height: dim.height,
-      width: dim.width,
-      position: 'absolute',
+      flex: 1,
+    },
+
+    modalGradientContainerStyle: {
+      borderTopLeftRadius: moderateScale(10),
+      borderTopRightRadius: moderateScale(10),
     },
 
     loginScreen: {
@@ -97,7 +99,7 @@ function getThemedStyles(colors: Colors) {
       bottom: 0,
       borderTopLeftRadius: moderateScale(10),
       borderTopRightRadius: moderateScale(10),
-      paddingBottom: verticalScale(50),
+      height: heightPercentageToDP('80%'),
       width: horizontalScale(375),
       alignSelf: 'center',
     },
@@ -111,6 +113,7 @@ function getThemedStyles(colors: Colors) {
 
     loginModalPressArea: {
       paddingHorizontal: horizontalScale(20),
+      gap: verticalScale(10),
     },
 
     loginModalHeading: {
